@@ -275,4 +275,4 @@ __pycache__/
 # tools/
 
 # proxy file - contains passwords
-/src/server/app/config/proxy.js
+#/src/server/app/config/proxy.js

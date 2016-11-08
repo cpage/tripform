@@ -25,7 +25,7 @@ var config = {
             updateCompanyEval: '/insert/complex/evaluation?token=%s&p15_evaluation.br_evaluatortype=100000001&p15_evaluation.p15_guestid=%s'
         },
     },
-    proxy: proxyConfig.server
+    proxy: proxyConfig.server || ''
     
     
 
