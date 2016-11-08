@@ -1,24 +1,13 @@
-var User = require('../models/userModel');
-
-module.exports = function () {
-
+module.exports = function (userRepo) {
+    var repo = userRepo;
     var getAll = function (req, res) {
-        var users = [
-            new User({
-                username: 'cpage1'
-            }),
-            new User({
-                username: 'cpage3'
-            }),
-            new User({
-                username: 'cpage5'
-            })
-        ];
-
-        res.json(users);
+        repo.getAll()
+            .then(function(users) {
+                res.json(users);
+            });
     };
 
     return {
         getAll: getAll
     };
-} ();
+};

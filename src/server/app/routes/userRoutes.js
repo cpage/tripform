@@ -1,5 +1,6 @@
 var express = require('express');
-var userController = require('../controllers/userController');
+var userRepo = require('../lib/users/userRepoMemory');
+var userController = require('../controllers/userController')(userRepo);
 
 module.exports = function() {
     var router = express.Router();
