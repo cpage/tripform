@@ -1,0 +1,48 @@
+{
+  "name": "tripform",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src\\server\\server.js",
+  "scripts": {
+    "start": "node src\\server\\server.js",
+    "install": "bower install"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/morgan": "^1.7.32",
+    "@types/node-uuid": "0.0.28",
+    "@types/promise": "^7.1.30",
+    "@types/request": "0.0.32",
+    "@types/winston": "0.0.29",
+    "@types/xml2js": "0.0.28",
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "morgan": "^1.7.0",
+    "node-uuid": "^1.4.7",
+    "passport": "^0.3.2",
+    "passport-jwt": "^2.2.0",
+    "promise": "^7.1.1",
+    "request": "^2.78.0",
+    "winston": "^2.3.0",
+    "xml2js": "^0.4.17"
+  },
+  "devDependencies": {
+    "@types/body-parser": "*",
+    "@types/express": "*",
+    "@types/gulp": "^3.8.32",
+    "@types/gulp-load-plugins": "0.0.28",
+    "@types/gulp-task-listing": "0.0.29",
+    "@types/morgan": "^1.7.32",
+    "@types/node-uuid": "0.0.28",
+    "@types/passport": "*",
+    "@types/passport-jwt": "*",
+    "@types/promise": "^7.1.30",
+    "@types/request": "0.0.32",
+    "@types/winston": "0.0.29",
+    "gulp": "^3.9.1",
+    "gulp-load-plugins": "^1.4.0",
+    "gulp-task-listing": "^1.0.1"
+  }
+}
