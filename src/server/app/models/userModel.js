@@ -1,4 +1,4 @@
-module.exports = function(data) {
+exports.User = function(data) {
     this.id = data.id || '';
     this.username = data.username || '';
     this.manage = data.manage || false;
