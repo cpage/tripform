@@ -1,4 +1,5 @@
 var logger = require('winston');
+var User = require('../models/userModel').User;
 
 module.exports = function (userRepo) {
     var repo = userRepo;
@@ -10,7 +11,9 @@ module.exports = function (userRepo) {
     };
 
     var createUser = function (req, res) {
-        repo.createUser(req.body)
+        var u = new User(req.body);
+        u.updatePassword(req.body.password);
+        repo.createUser(u)
             .then(function (results) {
                 res.status(201).json(results);
             })
