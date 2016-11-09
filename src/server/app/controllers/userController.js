@@ -21,19 +21,25 @@ module.exports = function (userRepo) {
     };
 
     var getUserById = function (req, res) {
-        var userId = req.params.id;
-        repo.getUserById(userId).then(function (user) {
+        res.json(req.user);
+    };
+
+    var getUserForRequest = function (req, res, next, id) {
+        repo.getUserById(id).then(function (user) {
             if (user) {
-                res.json(user);
+                req.user = user;
+                next();
             } else {
-                res.status(404).send('User ' + userId + ' not found.');
+                res.status(404).json({ message: 'User ' + req.params.id + ' not found.' });
             }
         })
+            .catch(function (err) {
+                next(err);
+            });
     };
 
     var deleteUser = function (req, res) {
-        var userId = req.params.id;
-
+        var userId = req.user._id;
         repo.deleteUser(userId)
             .then(function (results) {
                 res.json(results);
@@ -48,6 +54,7 @@ module.exports = function (userRepo) {
         getAll: getAll,
         createUser: createUser,
         getUserById: getUserById,
-        deleteUser: deleteUser
+        deleteUser: deleteUser,
+        getUserForRequest: getUserForRequest
     };
 };

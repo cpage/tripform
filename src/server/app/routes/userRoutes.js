@@ -5,6 +5,7 @@ var userController = require('../controllers/userController')(userRepo);
 module.exports = function() {
     var router = express.Router();
 
+    router.param('id', userController.getUserForRequest)
     router.get('/', userController.getAll);
     router.post('/', userController.createUser);
     router.get('/:id', userController.getUserById);

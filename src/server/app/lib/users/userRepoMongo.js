@@ -1,9 +1,9 @@
 var User = require('../../models/userModel');
 var ObjectID = require('mongodb').ObjectID;
 var config = require('../../config');
-//var m = require('mongodb').Db;
-//var db = new m('', {});
-//db.collection('users').deleteOne()
+// var m = require('mongodb').Db;
+// var db = new m('', {});
+// db.collection('users').updateOne()
 
 exports.getAll = function () {
     return getUsersCollection().find({}).toArray();;
