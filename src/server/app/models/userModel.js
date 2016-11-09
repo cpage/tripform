@@ -9,7 +9,7 @@ exports.User = function(data) {
     this.p15Team = data.p15Team || '';
 
     this.validatePassword = function(pw) {
-
+        return hasher.verify(pw, this.password);
     };
 
     this.updatePassword = function(pw) {

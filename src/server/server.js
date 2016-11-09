@@ -9,5 +9,5 @@ db.connect(config.mongo.url).then(function (results) {
         logger.info('server listening on port 3000');
     });
 }).catch(function (err) {
-    logger.error('error connecting to db' + err);
+    logger.error('error connecting to db' + err + '. Stack tracke: ' + err.stackTrace);
 });

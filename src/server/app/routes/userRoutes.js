@@ -9,6 +9,7 @@ module.exports = function() {
     router.get('/', userController.getAll);
     router.post('/', userController.createUser);
     router.get('/:id', userController.getUserById);
-    router.delete('/:id', userController.deleteUser)
+    router.delete('/:id', userController.deleteUser);
+
     return router;
 }();
