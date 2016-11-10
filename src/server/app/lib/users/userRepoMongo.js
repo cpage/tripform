@@ -11,8 +11,6 @@ exports.getAll = function () {
 
 exports.getUserById = function(id) {
     var oid = new ObjectID(id);
-    var coll = getUsersCollection();
-    coll.find({_id: oid});
     return getUsersCollection().find({_id: oid}).limit(1).next();
 };
 
