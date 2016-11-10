@@ -36,6 +36,7 @@
     "@types/express": "*",
     "@types/gulp": "^3.8.32",
     "@types/gulp-load-plugins": "0.0.28",
+    "@types/gulp-nodemon": "0.0.29",
     "@types/gulp-task-listing": "0.0.29",
     "@types/jwt-simple": "^0.5.32",
     "@types/mongodb": "^2.1.34",
@@ -49,6 +50,7 @@
     "@types/winston": "0.0.29",
     "gulp": "^3.9.1",
     "gulp-load-plugins": "^1.4.0",
+    "gulp-nodemon": "^2.2.1",
     "gulp-task-listing": "^1.0.1"
   }
 }
