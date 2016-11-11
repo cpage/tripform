@@ -7,13 +7,13 @@
     
 
     //////////
-    configRoutes.$inject = ['$stateProvider'];
+    configureRoutes.$inject = ['$stateProvider'];
 
     function configureRoutes($stateProvider) {
         $stateProvider
             .state('shell', {
                 url: '/',
-                template: '<shell></shell>', // users component
+                template: '<shell></shell>', // shell component
                 controller: 'UserController as vm',
             });
     }

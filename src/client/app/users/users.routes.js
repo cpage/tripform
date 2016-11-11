@@ -7,7 +7,7 @@
     
 
     //////////
-    configRoutes.$inject = ['$stateProvider'];
+    configureRoutes.$inject = ['$stateProvider'];
 
     function configureRoutes($stateProvider) {
         $stateProvider
