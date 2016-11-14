@@ -8,7 +8,7 @@
 
     angular
         .module('app.core')
-        .component('Shell', {
+        .component('shell', {
             //template:'htmlTemplate',
             templateUrl: 'app/core/shell/shell.html',
             controller: ShellController,
@@ -17,10 +17,10 @@
             },
         });
 
-    ShellController.$inject = ['dependency1'];
-    function ShellController(dependency1) {
+    //ShellController.$inject = [''];
+    function ShellController() {
         var $ctrl = this;
-        
+        console.log('in the shell component controller...');
 
         ////////////////
 

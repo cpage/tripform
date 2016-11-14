@@ -7,11 +7,10 @@
 
     UsersService.$inject = ['$http'];
     function UsersService($http) {
-        this.getAllusers = getAllusers;
+        this.getAllUsers = getAllUsers;
 
         ////////////////
-
-        function getAllusers() {
+        function getAllUsers() {
             return [{
                 _id: '123',
                 username: 'cpage'

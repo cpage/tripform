@@ -68,6 +68,7 @@
     "gulp-task-listing": "^1.0.1",
     "gulp-util": "^3.0.7",
     "gulp-wiredep": "0.0.0",
+    "run-sequence": "^1.2.2",
     "wiredep": "^4.0.0",
     "yargs": "^6.3.0"
   }

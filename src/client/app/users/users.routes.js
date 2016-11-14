@@ -7,14 +7,18 @@
     
 
     //////////
-    configureRoutes.$inject = ['$stateProvider'];
+    configureRoutes.$inject = ['$stateProvider', '$urlRouterProvider'];
 
-    function configureRoutes($stateProvider) {
+    function configureRoutes($stateProvider, $urlRouterProvider) {
+        console.log('configuring user routes...');
         $stateProvider
             .state('users', {
                 url: '/users',
-                template: '<users></users>', // users component
-                controller: 'UserController as vm',
+                component: 'users'
+            })
+            .state('userDetails', {
+                url: '/users/:id',
+                template: '<user-details userid="\'123\'"></user-details>',
             });
     }
 } ());

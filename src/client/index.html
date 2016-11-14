@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="app">
+
 <head>
     <meta charset="UTF-8">
     <title ng-bind="title">Trip Form</title>
@@ -11,11 +12,13 @@
     <link rel="stylesheet" href="/.tmp/styles/styles.css">
     <!-- endinject -->
 </head>
+
 <body>
     <div class="container">
         Look at me!
-    </div>
+        <shell></shell>
 
+    </div>
 
     <!-- bower:js -->
     <script src="/bower_components/angular/angular.js"></script>
@@ -26,13 +29,15 @@
 
     <!-- inject:js -->
     <script src="/src/client/app/app.module.js"></script>
-    <script src="/src/client/app/core/app.core.module.js"></script>
+    <script src="/src/client/app/core/core.module.js"></script>
     <script src="/src/client/app/users/users.module.js"></script>
-    <script src="/src/client/app/core/app.core.routes.js"></script>
+    <script src="/src/client/app/core/core.routes.js"></script>
+    <script src="/src/client/app/users/user-details.component.js"></script>
     <script src="/src/client/app/users/users.component.js"></script>
     <script src="/src/client/app/users/users.routes.js"></script>
     <script src="/src/client/app/users/users.service.js"></script>
     <script src="/src/client/app/core/shell/shell.component.js"></script>
     <!-- endinject -->
 </body>
+
 </html>

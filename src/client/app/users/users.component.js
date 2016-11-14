@@ -10,17 +10,13 @@
         .module('app.users')
         .component('users', {
             templateUrl: 'app/users/users.html',
-            controller: usersController,
-            
-            bindings: {
-                Binding: '=',
-            },
+            controller: usersController
         });
 
     usersController.$inject = ['UsersService'];
-    function usersController(usersService) {
+    function usersController(UsersService) {
         var $ctrl = this;
-        
+        $ctrl.users = UsersService.getAllUsers();
 
         ////////////////
 

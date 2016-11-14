@@ -2,6 +2,7 @@ var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 var browserSync = require('browser-sync');
 var args = require('yargs').argv;
+var run = require('run-sequence');
 
 var config = require('./gulp.config');
 var colors = $.util.colors;
@@ -14,8 +15,7 @@ gulp.task('help', function () {
 
 gulp.task('default', ['help']);
 
-gulp.task('inject', ['styles'], function () {
-
+gulp.task('inject-vendor', function () {
   var wiredep = require('wiredep').stream;
   var options = {
     ignorePath: '../..'
@@ -24,11 +24,7 @@ gulp.task('inject', ['styles'], function () {
 
   return gulp
     .src(config.indexHtml)
-    .pipe($.print())
     .pipe(wiredep(options))
-    .pipe($.inject(gulp.src(config.clientJsFiles.concat([config.tmpPath + '**/*.css']), {
-      read: false
-    }).pipe($.print())))
     .pipe(gulp.dest(config.clientRootPath));
 
 });
@@ -40,6 +36,18 @@ gulp.task('styles', function () {
     .pipe($.less())
     .pipe(gulp.dest(config.tmpPath));
 });
+
+gulp.task('inject', ['styles', 'inject-vendor'], function () {
+
+  return gulp
+    .src(config.indexHtml)
+    .pipe($.inject(gulp.src(config.clientJsFiles.concat([config.tmpPath + '**/*.css']), {
+      read: false
+    })))
+    .pipe(gulp.dest(config.clientRootPath));
+
+});
+
 
 gulp.task('serve-dev', ['inject'], function () {
   return serve(true);
@@ -99,13 +107,15 @@ function startBrowserSync(isDev, specRunner) {
 
   // If build: watches the files, builds, and restarts browser-sync.
   // If dev: watches less, compiles it to css, browser-sync handles reload
-  if (isDev) {
-    gulp.watch([config.lessFiles], ['styles'])
-      .on('change', changeEvent);
-  } else {
-    gulp.watch([config.lessFiles, config.clientJsFiles, config.clientHtmlFiles], ['browserSyncReload'])
-      .on('change', changeEvent);
-  }
+  gulp.watch([config.clientJsFiles])
+    .on('change', function (event) {
+      if (event.type === 'added' || event.type === 'deleted') {
+        log('js file added or removed, running inject');
+        run('inject');
+      }
+    });
+  gulp.watch([config.lessFiles], ['styles'])
+    .on('change', changeEvent);
 
   var options = {
     proxy: 'localhost:' + port,
@@ -129,7 +139,7 @@ function startBrowserSync(isDev, specRunner) {
     logLevel: 'info',
     logPrefix: 'tripform',
     notify: true,
-    reloadDelay: 0 //1000
+    reloadDelay: 1000
   };
   //   if (specRunner) {
   //     options.startPath = config.specRunnerFile;
