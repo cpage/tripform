@@ -9,40 +9,40 @@ var colors = $.util.colors;
 var port = process.env.PORT || config.node.defaultPort;
 
 gulp.task('help', function () {
-    $.taskListing();
+  $.taskListing();
 });
 
 gulp.task('default', ['help']);
 
 gulp.task('inject', ['styles'], function () {
 
-    var wiredep = require('wiredep').stream;
-    var options = {
-        ignorePath: '../..'
-    };
+  var wiredep = require('wiredep').stream;
+  var options = {
+    ignorePath: '../..'
+  };
 
 
-    return gulp
-        .src(config.indexHtml)
-        .pipe($.print())
-        .pipe(wiredep(options))
-        .pipe($.inject(gulp.src(config.clientJsFiles.concat([config.tmpPath + '**/*.css']), {
-            read: false
-        }).pipe($.print())))
-        .pipe(gulp.dest(config.clientRootPath));
+  return gulp
+    .src(config.indexHtml)
+    .pipe($.print())
+    .pipe(wiredep(options))
+    .pipe($.inject(gulp.src(config.clientJsFiles.concat([config.tmpPath + '**/*.css']), {
+      read: false
+    }).pipe($.print())))
+    .pipe(gulp.dest(config.clientRootPath));
 
 });
 
 gulp.task('styles', function () {
-    return gulp
-        .src(config.lessFiles)
-        .pipe($.plumber())
-        .pipe($.less())
-        .pipe(gulp.dest(config.tmpPath));
+  return gulp
+    .src(config.lessFiles)
+    .pipe($.plumber())
+    .pipe($.less())
+    .pipe(gulp.dest(config.tmpPath));
 });
 
 gulp.task('serve-dev', ['inject'], function () {
-    return serve(true);
+  return serve(true);
 });
 
 
@@ -65,23 +65,23 @@ function log(msg) {
 }
 
 function serve(isDev) {
-    return $.nodemon({
-        script: config.serverRootPath + 'server.js',
-        watch: config.serverJsFiles,
-        delay: 2500,
-        env: {
-            'PORT': port,
-            'NODE_ENV': isDev ? 'dev' : 'build'
-        }
+  return $.nodemon({
+    script: config.serverRootPath + 'server.js',
+    watch: config.serverJsFiles,
+    delay: 2500,
+    env: {
+      'PORT': port,
+      'NODE_ENV': isDev ? 'dev' : 'build'
+    }
+  })
+    .on('restart', function (e) {
+      log('******* nodemon restarted');
+      changeEvent(e);
+
     })
-    .on('restart', function(e) {
-        log('******* nodemon restarted');
-        changeEvent(e);
-        
-    })
-    .on('start', function() {
-        log('******* nodemon started');
-        startBrowserSync(isDev, false);
+    .on('start', function () {
+      log('******* nodemon started');
+      startBrowserSync(isDev, false);
     })
     ;
 
@@ -131,9 +131,9 @@ function startBrowserSync(isDev, specRunner) {
     notify: true,
     reloadDelay: 0 //1000
   };
-//   if (specRunner) {
-//     options.startPath = config.specRunnerFile;
-//   }
+  //   if (specRunner) {
+  //     options.startPath = config.specRunnerFile;
+  //   }
 
   browserSync(options);
 }
@@ -145,7 +145,9 @@ function startBrowserSync(isDev, specRunner) {
  */
 function changeEvent(event) {
   var srcPattern = new RegExp('/.*(?=/' + config.srcPath + ')/');
-  var index = event.path.indexOf(config.srcPath);
-  log('src index: ' + index);
-  log('File ' + event.path.substring(index) + ' ' + event.type);
+  if (event.path) {
+    var index = event.path.indexOf(config.srcPath);
+    if (index >= 0)
+      log('File ' + event.path.substring(index) + ' ' + event.type);
+  }
 }
