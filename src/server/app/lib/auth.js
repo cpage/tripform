@@ -25,7 +25,12 @@ module.exports = function () {
             return passport.initialize();
         },
         authenticate: function () {
-            return passport.authenticate('jwt', authConfig.jwtOptions);
+            if(authConfig.isEnabled)
+                return passport.authenticate('jwt', authConfig.jwtOptions);
+            
+            return function(req, res, next) {
+                return next();
+            };
         }
     };
 } ();
