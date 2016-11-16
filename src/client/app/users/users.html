@@ -1,49 +1,51 @@
 <p>Users List</p>
-<table class="table">
-    <thead>
-        <th class="col-md-3">Email</th>
-        <th class="col-md-2">Password</th>
-        <th class="col-md-2">Peak 15 ID</th>
-        <th class="col-md-2">Team</th>
-        <th class="col-md-2">Role</th>
-        <th class="col-md-1"></th>
-    </thead>
-    <tbody>
-        <tr ng-repeat="user in $ctrl.users">
-            <td>
-                <span editable-text="user._id" e-name="id" e-form="userForm" e-ng-show="false" ng-show="false">{{user._id}}</span>
-                <span editable-text="user.username" e-name="username" e-form="userForm">{{user.username}}</span>
-            </td>
-            <td>
-                <span editable-text="user.password" e-name="password" e-form="userForm"></span>
-            </td>
-            <td>
-                <span editable-text="user.p15Id" e-name="p15Id" e-form="userForm">{{user.p15Id}}</span>
-            </td>
-            <td>
-                <span editable-text="user.p15Team" e-name="p15Team" e-form="userForm">{{user.p15Team}}</span>
-            </td>
-            <td>
-                <span editable-select="user.role" e-name="role" e-form="userForm" e-ng-options="role.name as role.name for role in $ctrl.roles">{{user.role}}</span>
-            </td>
-            <td>
-                <form editable-form name="userForm" onbeforesave="$ctrl.saveUser($data, $index)" ng-show="userForm.$visible" class="form-buttons form-inline"
-                    shown="!user._id">
-                      
-                    <button type="submit" ng-disabled="userForm.$waiting" class="btn btn-success btn-sm">
-                        <span class="glyphicon glyphicon-ok-circle"></span>
-                    </button>
-                    <button type="button" ng-disabled="userForm.$waiting" ng-click="$ctrl.cancel(userForm, $index)" class="btn btn-danger btn-sm">
-                        <span class="glyphicon glyphicon-ban-circle"></span>
-                    </button>
-                </form>
-                <div class="buttons" ng-show="!userForm.$visible">
-                    <button type="button" class="btn btn-primary btn-sm" ng-click="userForm.$show()"><span class="glyphicon glyphicon-pencil"></span></button>
-                    <button type="button" class="btn btn-danger btn-sm" ng-click="$ctrl.removeUser($index)"><span class="glyphicon glyphicon-trash"></span></button>
-                </div>
-            </td>
-        </tr>
-    </tbody>
-</table>
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <th class="col-md-3">Email</th>
+            <th class="col-md-2">Password</th>
+            <th class="col-md-2">Peak 15 ID</th>
+            <th class="col-md-2">Team</th>
+            <th class="col-md-2">Role</th>
+            <th class="col-md-1"></th>
+        </thead>
+        <tbody>
+            <tr ng-repeat="user in $ctrl.users">
+                <td>
+                    <span editable-text="user._id" e-name="_id" e-form="userForm" e-ng-show="false" ng-show="false">{{user._id}}</span>
+                    <span editable-text="user.username" e-name="username" e-form="userForm" onbeforesave="$ctrl.requiredField('username', $data)">{{user.username}}</span>
+                </td>
+                <td>
+                    <span editable-text="user.password" e-name="password" e-placeholder='New Password' e-form="userForm" onbeforesave="$ctrl.validatePassword($data, user._id)"></span>
+                </td>
+                <td>
+                    <span editable-text="user.p15Id" e-name="p15Id" e-form="userForm" onbeforesave="$ctrl.requiredField('P15 ID', $data)">{{user.p15Id}}</span>
+                </td>
+                <td>
+                    <span editable-text="user.p15Team" e-name="p15Team" e-form="userForm">{{user.p15Team}}</span>
+                </td>
+                <td>
+                    <span editable-select="user.role" e-name="role" e-form="userForm" e-ng-options="role.name as role.name for role in $ctrl.roles" onbeforesave="$ctrl.requiredField('role', $data)">{{user.role}}</span>
+                </td>
+                <td>
+                    <form editable-form name="userForm" onbeforesave="$ctrl.saveUser($data, $index)" ng-show="userForm.$visible" class="form-buttons form-inline"
+                        shown="!user._id">
+                          
+                        <button type="submit" ng-disabled="userForm.$waiting" class="btn btn-success btn-sm">
+                            <span class="glyphicon glyphicon-floppy-save"></span>
+                        </button>
+                        <button type="button" ng-disabled="userForm.$waiting" ng-click="$ctrl.cancel(userForm, $index)" class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-ban-circle"></span>
+                        </button>
+                    </form>
+                    <div class="buttons" ng-show="!userForm.$visible">
+                        <button type="button" class="btn btn-primary btn-sm" ng-click="userForm.$show()"><span class="glyphicon glyphicon-pencil"></span></button>
+                        <button type="button" class="btn btn-danger btn-sm" ng-click="$ctrl.removeUser($index)"><span class="glyphicon glyphicon-trash"></span></button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
 <button type="button" class="btn btn-default" ng-click="$ctrl.addUser()">Add row</button>

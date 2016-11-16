@@ -10,6 +10,7 @@ module.exports = function() {
     router.get('/', userController.getAll);
     router.post('/', userController.createUser);
     router.get('/:id', userController.getUserById);
+    router.put('/:id', userController.updateUser);
     router.delete('/:id', userController.deleteUser);
 
     return router;

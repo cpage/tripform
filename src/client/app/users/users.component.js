@@ -19,24 +19,17 @@
         var $ctrl = this;
 
         $ctrl.saveUser = function (data, index) {
-            var user = $ctrl.users[index];
-            if (!data.id) {
-                user._id = data.id = Math.max.apply(Math, $ctrl.users.map(function (u) {
-                    if (u._id) return u._id;
 
-                    return 0;
-                })) + 1;
-            }
-
-            // user.username = data.username;
-            // user.password = data.password;
-            // user.p15Id = data.p15Id;
-            // user.p15Team = data.p15Team;
-            // user.role = data.role;            
+            UsersService.saveUser(data).then(function(data) {
+                $ctrl.users[index] = data;
+            });
         };
 
         $ctrl.removeUser = function (index) {
-            $ctrl.users.splice(index, 1);
+            UsersService.deleteUser($ctrl.users[index]._id).then(function(result) {
+                $ctrl.users.splice(index, 1);
+            });
+            
         };
 
         $ctrl.addUser = function () {
@@ -44,16 +37,29 @@
         };
 
         $ctrl.cancel = function (form, index) {
-            if (form.$data.id)
+            if (form.$data._id)
                 form.$cancel();
             else
                 $ctrl.users.splice(index, 1);
         };
 
+        $ctrl.requiredField = function(name, val) {
+            if(!val) {
+                return name + ' is required.';
+            }
+        };
+
+        $ctrl.validatePassword = function(val, id) {
+            if(!id && !val) {
+                return 'password is reuired';
+            }
+        };
         ////////////////
 
         $ctrl.$onInit = function () {
-            $ctrl.users = UsersService.getAllUsers();
+            UsersService.getAllUsers().then(function(users) {
+                $ctrl.users = users;
+            });
             $ctrl.roles = userRoles;
         };
 

@@ -6,16 +6,18 @@ module.exports = function (userRepo) {
     var getAll = function (req, res) {
         repo.getAll()
             .then(function (users) {
-                res.json(users);
+                res.json(users.map(function (u) { delete u.password; return u; }));
             });
     };
 
     var createUser = function (req, res) {
         var u = new User(req.body);
+
         u.updatePassword(req.body.password);
         repo.createUser(u)
             .then(function (results) {
-                res.status(201).json(results);
+                delete results.ops[0].password;
+                res.status(201).json(results.ops[0]);
             })
             .catch(function (err) {
                 logger.error('error creating user for ' + req.body + '. Error: ' + err);
@@ -41,6 +43,20 @@ module.exports = function (userRepo) {
             });
     };
 
+    var updateUser = function (req, res) {
+        var user = new User(req.body);
+        user.updatePassword(req.body.password);
+        repo.updateUser(user)
+            .then(function (results) {
+                delete user.password;
+                res.json(user);
+            })
+            .catch(function (err) {
+                logger.error('error updating user id ' + user._id + '. Error: ' + err);
+                res.status(500).send(err);
+            });
+    };
+
     var deleteUser = function (req, res) {
         var userId = req.user._id;
         repo.deleteUser(userId)
@@ -56,6 +72,7 @@ module.exports = function (userRepo) {
     return {
         getAll: getAll,
         createUser: createUser,
+        updateUser: updateUser,
         getUserById: getUserById,
         deleteUser: deleteUser,
         getUserForRequest: getUserForRequest

@@ -1,29 +1,42 @@
-(function () {
+(function() {
     'use strict';
 
     angular
         .module('app.users')
         .service('UsersService', UsersService);
 
-    UsersService.$inject = ['$http'];
-    function UsersService($http) {
+    UsersService.$inject = ['$http', '$timeout'];
+    function UsersService($http, $timeout) {
         this.getAllUsers = getAllUsers;
+        this.saveUser = saveUser;
+        this.deleteUser = deleteUser;
 
+        var apiUrl = '/api/users/';
         ////////////////
         function getAllUsers() {
-            return [{
-                _id: '123',
-                username: 'cpage',
-                role: 'Admin'
-            }, {
-                _id: '456',
-                username: 'llo',
-                role: 'User'
-            }, {
-                _id: '789',
-                username: 'rburke',
-                role: 'User'
-            }];
+            return $http.get(apiUrl)
+                .then(function(response) {
+                    return response.data;
+                });
         }
+
+        function saveUser(user) {
+            if (!user._id) {
+                return $http.post(apiUrl, user).then(function(response) {
+                    return response.data;
+                });
+            }
+
+            return $http.put(apiUrl + user._id, user).then(function(response) {
+                return response.data;
+            });
+        }
+
+        function deleteUser(id) {
+            return $http.delete(apiUrl + id).then(function(response) {
+                return true;
+            });
+        }
+
     }
 })();
