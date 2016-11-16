@@ -4,7 +4,7 @@ var logger = require('winston');
 var xml2js = require('xml2js');
 
 module.exports = function () {
-    var beaconConfig = config.beacon.production;
+    var beaconConfig = config.beacon[process.env.NODE_ENV];
 
     var baseRequest = request.defaults({
         proxy: config.proxy,
@@ -12,6 +12,7 @@ module.exports = function () {
     });
 
     var getDepartures = function () {
+        logger.info('process env: ' + process.env.NODE_ENV)
         var getUrl = beaconConfig.baseUrl + beaconConfig.getDepartures;
 
         var p = new Promise(function (resolve, reject) {
@@ -59,4 +60,4 @@ module.exports = function () {
     return {
         getDepartures: getDepartures
     };
-}();
+} ();

@@ -13,13 +13,16 @@
         function getAllUsers() {
             return [{
                 _id: '123',
-                username: 'cpage'
+                username: 'cpage',
+                role: 'Admin'
             }, {
                 _id: '456',
-                username: 'llo'
+                username: 'llo',
+                role: 'User'
             }, {
                 _id: '789',
-                username: 'rburke'
+                username: 'rburke',
+                role: 'User'
             }];
         }
     }

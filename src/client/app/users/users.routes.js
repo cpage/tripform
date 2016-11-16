@@ -15,10 +15,6 @@
             .state('users', {
                 url: '/users',
                 component: 'users'
-            })
-            .state('userDetails', {
-                url: '/users/:id',
-                template: '<user-details userid="\'123\'"></user-details>',
             });
     }
 } ());
