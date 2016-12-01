@@ -1,6 +1,5 @@
 var Departure = require('../models/departure');
 var beacon = require('../lib/beacon');
-var Promise = require('promise');
 
 module.exports = function () {
 

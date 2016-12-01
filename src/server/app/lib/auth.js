@@ -1,36 +1,63 @@
 var passport = require('passport');
-var passportJWT = require('passport-jwt');
+var Strategy = require('passport-local').Strategy;
 var userRepo = require('./users/userRepoMongo');
+var User = require('../models/userModel').User;
 var authConfig = require('../config').auth;
-var ExtractJwt = passportJWT.ExtractJwt;
-var Strategy = passportJWT.Strategy;
-var params = {
-    secretOrKey: authConfig.jwtSecret,
-    jwtFromRequest: ExtractJwt.fromAuthHeader()
-};
+var logger = require('winston');
 
 module.exports = function () {
-    var strategy = new Strategy(params, function (payload, done) {
-        var user = userRepo.getUserById(payload.id).then(function (user) {
-            if (user) {
-                return done(null, user);
-            } else {
-                return done(new Error('User not found'), null);
-            }
-        });
-    });
-    passport.use(strategy);
     return {
-        initialize: function () {
-            return passport.initialize();
+        initialize: function (app) {
+            app.use(passport.initialize());
+            app.use(passport.session());
+
+            passport.serializeUser(function(user, done) {
+                done(null, user._id);
+            });
+
+            passport.deserializeUser(function(id, done) {
+                userRepo.getUserById(id).then(function(data) {
+                    if(!data) {
+                        return done(null, false);
+                    }
+
+                    return done(null, new User(data));
+                });
+            });
+
+            passport.use(new Strategy(function (username, password, done) {
+                userRepo.getUserByUsername(username).then(function (data) {
+                    if (!data) {
+                        logger.info('[LocalStrategy] username not found, return false');
+                        return done(null, false);
+                    }
+
+                    var user = new User(data);
+                    if (!user.validatePassword(password)) {
+                        logger.info('[LocalStrategy] passwords don\'t match, return false');
+                        return done(null, false);
+                    }
+
+
+                    logger.debug('[LocalStrategy] all good, returning the user');
+                    return done(null, user);
+                });
+            }));
+
         },
         authenticate: function () {
-            if(authConfig.isEnabled)
-                return passport.authenticate('jwt', authConfig.jwtOptions);
-            
-            return function(req, res, next) {
+            if (authConfig.isEnabled)
+                return passport.authenticate('local');
+
+            return function (req, res, next) {
                 return next();
             };
+        },
+        validAuth: function(req, res, next) {
+            if(req.isAuthenticated()) {
+                return next();
+            }
+            res.sendStatus(401);
         }
     };
 } ();

@@ -1,7 +1,9 @@
 var express = require('express');
+var session = require('express-session');
+var MongoSessionStore = require('connect-mongodb-session')(session);
+
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
-var passport = require('passport');
 var auth = require('./lib/auth');
 
 var app = express();
@@ -11,9 +13,25 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 //app.use(morgan('dev'));
+app.use(session({
+    name: 'appSession',
+    secret: 'superdupersecret',
+    store: new MongoSessionStore({
+        uri: 'mongodb://localhost:27017/tripform',
+        collection: 'sessions'
+    }),
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        httpOnly: true,
+        maxAge: 60 * 60 * 1000        
+    }
 
+}));
+
+auth.initialize(app);
 require('./routes')(app);
-app.use(auth.initialize());
+
 
 app.use(express.static('./src/client/'));
 app.use(express.static('./'));

@@ -5,7 +5,7 @@ var auth = require('../lib/auth');
 
 module.exports = function() {
     var router = express.Router();
-    router.use(auth.authenticate());
+    router.use(auth.validAuth);
     router.param('id', userController.getUserForRequest)
     router.get('/', userController.getAll);
     router.post('/', userController.createUser);

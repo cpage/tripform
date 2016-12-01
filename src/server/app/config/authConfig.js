@@ -3,5 +3,5 @@ module.exports = {
     jwtOptions: {
         session: false
     },
-    isEnabled: false
+    isEnabled: true
 };

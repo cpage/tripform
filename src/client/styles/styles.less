@@ -1,5 +1,60 @@
-@lightgrey: #eee;
+@lightgrey: #efefef;
+@blue: #0095EE;
+@blue_secondary: #d6ecff;
 
-.container {
-    background-color: @lightgrey;
+header {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid @lightgrey;
+}
+
+.header-logo {
+    padding-right: 20px;
+}
+
+h2.title {
+    margin: 40px 0 0 0;    
+}
+
+div#loggedInHeader>div {
+    padding-right: 30px;
+}
+
+nav {
+    margin-top: 10px;
+}
+
+.navbar {
+    margin-bottom: 0;
+}
+.navbar .icon-bar {
+    background-color: @blue;
+}
+
+.nav-pills>li>a {
+    color: @blue;
+}
+
+.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
+    background-color: @blue
+}
+
+.nav>li>a:focus, .nav>li>a:hover {
+    background-color: @blue_secondary;
+}
+
+.nav .open>a, .nav .open>a:focus, .nav .open>a:hover {
+    background-color: @blue_secondary;
+}
+
+.dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover {
+    background-color: @blue_secondary;
+}
+
+.dropdown-menu>.active>a, .dropdown-menu>.active>a:focus, .dropdown-menu>.active>a:hover {
+    background-color: @blue;
+}
+
+div.content {
+    padding-top: 20px;
 }

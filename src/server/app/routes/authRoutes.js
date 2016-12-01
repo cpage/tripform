@@ -1,7 +1,6 @@
 var express = require('express');
 var logger = require('winston');
-var jwt = require('jwt-simple');
-
+var auth = require('../lib/auth');
 var authConfig = require('../config').auth;
 var userRepo = require('../lib/users/userRepoMongo');
 var User = require('../models/userModel').User;
@@ -9,7 +8,9 @@ var User = require('../models/userModel').User;
 module.exports = function () {
     var router = express.Router();
 
-    router.post('/', function (req, res) {
+    router.post('/', auth.authenticate(), function (req, res) {
+        res.json({ message: 'logged in as ' + req.user.username });
+        /*
         var username = req.body.username;
         var password = req.body.password;
 
@@ -32,6 +33,7 @@ module.exports = function () {
                 logger.error(msg);
                 res.status(500).json({ message: msg });
             });
+            */
     });
 
     return router;

@@ -1,5 +1,4 @@
 var User = require('../../models/userModel');
-var Promise = require('promise');
 
 module.exports = function () {
     var getAll = function () {
