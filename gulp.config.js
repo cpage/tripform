@@ -8,6 +8,7 @@ module.exports = function () {
     var indexHtml = clientRootPath + 'index.html';
     var clientHtmlFiles = clientRootPath + '**/*.html';
     var lessFiles = clientRootPath + '**/*.less';
+    var mainLessFile = clientRootPath + 'styles/styles.less';
     var serverJsFiles = [serverRootPath + '**/*.js'];
     var clientJsFiles = [
         clientAppPath + 'app.module.js',
@@ -34,6 +35,7 @@ module.exports = function () {
         clientJsFiles: clientJsFiles,
         clientHtmlFiles: clientHtmlFiles,
         lessFiles: lessFiles,
+        mainLessFile: mainLessFile,
         indexHtml: indexHtml,
 
         /**Node settings */

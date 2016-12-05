@@ -31,7 +31,7 @@ gulp.task('inject-vendor', function () {
 
 gulp.task('styles', function () {
   return gulp
-    .src(config.lessFiles)
+    .src(config.mainLessFile)
     .pipe($.plumber())
     .pipe($.less())
     .pipe(gulp.dest(config.tmpPath));
