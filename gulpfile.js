@@ -29,12 +29,12 @@ gulp.task('inject-vendor', function () {
 
 });
 
-gulp.task('styles', function () {
+gulp.task('styles', ['fonts'], function () {
   return gulp
     .src(config.mainLessFile)
     .pipe($.plumber())
     .pipe($.less())
-    .pipe(gulp.dest(config.tmpPath));
+    .pipe(gulp.dest(config.tmpPath + 'css/'));
 });
 
 gulp.task('inject', ['styles', 'inject-vendor'], function () {
@@ -48,6 +48,11 @@ gulp.task('inject', ['styles', 'inject-vendor'], function () {
 
 });
 
+gulp.task('fonts', function () {
+  return gulp
+    .src(config.fontPaths)
+    .pipe(gulp.dest(config.tmpPath + 'fonts'));
+});
 
 gulp.task('serve-dev', ['inject'], function () {
   return serve(true);

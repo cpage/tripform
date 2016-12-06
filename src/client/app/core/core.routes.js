@@ -11,6 +11,11 @@
 
     function configureRoutes($stateProvider, $urlRouterProvider) {
         console.log('configuring core routes...');
+        $stateProvider.state('login', {
+            url: '/login',
+            component: 'login'
+        });
+
         $urlRouterProvider.otherwise('/users');
     }
     

@@ -17,7 +17,7 @@
             },
         });
 
-    //ShellController.$inject = [''];
+    ShellController.$inject = [];
     function ShellController() {
         var $ctrl = this;
         console.log('in the shell component controller...');
