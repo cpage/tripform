@@ -6,5 +6,6 @@ var router = express.Router();
 
 module.exports = router;
 
-router.use(auth.authenticate());
+router.use(auth.validAuth);
 router.get('/', departureController.getAll);
+router.get('/my', departureController.getMyDepartures);

@@ -1,18 +1,19 @@
-var config = require('../../config/environment');
+var envConfig = require('../../config/environment');
+var proxyConfig = require('../../config/proxy');
 var request = require('request');
 var logger = require('winston');
 var xml2js = require('xml2js');
 
 module.exports = function () {
-    var beaconConfig = config.beacon[process.env.NODE_ENV];
+    var beaconConfig = envConfig.beacon[process.env.NODE_ENV];
 
     var baseRequest = request.defaults({
-        proxy: config.proxy,
+        proxy: proxyConfig.server,
         strictSSL: false
     });
 
     var getDepartures = function () {
-        logger.info('process env: ' + process.env.NODE_ENV)
+        logger.info('process env: ' + process.env.NODE_ENV);
         var getUrl = beaconConfig.baseUrl + beaconConfig.getDepartures;
 
         var p = new Promise(function (resolve, reject) {
@@ -44,7 +45,7 @@ module.exports = function () {
                             reject(err);
                         } else {
                             logger.info('finished parsing xml, result: ' + result);
-                            resolve(result);
+                            resolve(result.Departure);
                         }
                     });
 

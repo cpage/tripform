@@ -18,6 +18,10 @@ exports.getUserByUsername = function (username) {
     return getUsersCollection().find({ username: username }).limit(1).next();
 };
 
+exports.getUsersByTeam = function(team) {
+    return getUsersCollection().find({ p15Team: team}).toArray();
+};
+
 exports.createUser = function (user) {
     return getUsersCollection().insertOne(user);
 };
