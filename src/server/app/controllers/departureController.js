@@ -3,12 +3,15 @@ var beacon = require('../lib/beacon');
 var userRepo = require('../lib/users/userRepoMongo');
 var _ = require('lodash');
 var envConfig = require('../config/environment');
+var memCache = require('../lib/cache');
 
 module.exports = function () {
 
 
     var getAll = function (req, res) {
-        beacon.getDepartures().then(function (departures) {
+        memCache.wrap("allDepartures", function () {
+            return beacon.getDepartures();
+        }).then(function (departures) {
             res.json(departures);
         });
     };
@@ -20,7 +23,7 @@ module.exports = function () {
                     return t.p15Id;
                 });
 
-                _.remove(departures, function (departure) { 
+                _.remove(departures, function (departure) {
                     let allIds = _.concat(departure.SubmitterContactIDs.GuideContactID, departure.ApproversContactIDs.ApproverContactID);
                     let matchingIds = _.intersection(allIds, teamIds);
 
