@@ -9,7 +9,7 @@ module.exports = function () {
     var router = express.Router();
 
     router.post('/', auth.authenticate(), function (req, res) {
-        res.json({ message: 'logged in as ' + req.user.username });
+        res.json(req.user);
     });
 
     router.post('/logout', function (req, res) {
@@ -27,5 +27,10 @@ module.exports = function () {
         });
 
     });
+
+    router.get('/profile', function(req, res) {
+        res.json(req.user);
+    });
+
     return router;
 } ();

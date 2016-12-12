@@ -11,6 +11,9 @@
         .component('login', {
             templateUrl: 'app/core/login/login.component.html',
             controller: loginController,
+            bindings: {
+                returnState: '<'
+            }
         });
 
     loginController.$inject = ['AuthSvc', '$state', '$window'];
@@ -26,7 +29,11 @@
                 .then(function (data) {
                     console.log('login: ' + data);
                     if (data.success) {
-                        $state.go('users');
+                        console.log('return state: ' + $ctrl.returnState.name);
+                        if($ctrl.returnState.name)
+                            $state.go($ctrl.returnState.name, $ctrl.returnState.params);
+                        else
+                            $state.go('users');
                     }
                     else {
                         $ctrl.errorMessage = 'Invalid username or password.';
@@ -41,6 +48,7 @@
 
         $ctrl.$onInit = function () {
             console.log('login component init');
+            console.log($ctrl.returnState);
             $window.document.getElementById('username').focus();
             AuthSvc.logout().then(function (data) {
                 console.log('logout complete');

@@ -4,17 +4,26 @@
     angular
         .module('app.users')
         .config(configureRoutes);
-    
+
 
     //////////
     configureRoutes.$inject = ['$stateProvider', '$urlRouterProvider'];
 
     function configureRoutes($stateProvider, $urlRouterProvider) {
+
         console.log('configuring user routes...');
         $stateProvider
             .state('users', {
                 url: '/users',
-                component: 'users'
+                component: 'users',
+                resolve: {
+                    valid: ['AuthSvc', function(AuthSvc) {
+                        return AuthSvc.redirectIfNotAuthenticated();
+                    }]
+                }
             });
     }
+
+     
+
 } ());
