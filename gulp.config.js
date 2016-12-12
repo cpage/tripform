@@ -15,7 +15,10 @@ module.exports = function () {
         clientAppPath + '**/*.module.js',
         clientAppPath + '**/*.js'
     ];
-    var fontPaths = ['bower_components/bootstrap/fonts/**/*.*'];
+    var fontPaths = [
+        'bower_components/bootstrap/fonts/**/*.*',
+        'bower_components/font-awesome/fonts/**/*.*'
+    ];
 
     var node = {
         defaultPort: 8080,
@@ -39,8 +42,8 @@ module.exports = function () {
         mainLessFile: mainLessFile,
         indexHtml: indexHtml,
         fontPaths: fontPaths,
-         
+
         /**Node settings */
         node: node
     };
-}();
+} ();

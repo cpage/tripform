@@ -1,1 +1,23 @@
-<p>This is the departures component...</p>
+<div class="row">
+    <a class="btn btn-primary" ng-click="$ctrl.loadAllDepartures()">Load All <i class="fa fa-spinner fa-spin" ng-style="{'visibility': $ctrl.loadingAllDepartures ? 'visible' : 'hidden'}"></i></button></a>
+    <a class="btn btn-primary" ng-click="$ctrl.loadMyDepartures()">Load My Departures <i class="fa fa-spinner fa-spin" ng-style="{'visibility': $ctrl.loadingMyDepartures ? 'visible' : 'hidden'}"></i></a>
+</div>
+<div class="row">
+    <table class="table table-striped table-hover" ng-if="!$ctrl.loadingAllDepartures && !$ctrl.loadingMyDepartures && $ctrl.departures">
+        <thead>
+            <tr>
+                <th>Code</th>
+                <th>Name</th>
+                <th>Start Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="departure in $ctrl.departures">
+                <td>{{departure.DepartureCode}}</td>
+                <td>{{departure.TripName}}</td>
+                <td>{{departure.DepartureStartDate}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
