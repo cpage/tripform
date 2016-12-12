@@ -28,6 +28,7 @@
     "passport-local": "^1.0.0",
     "password-hash": "^1.2.2",
     "request": "^2.78.0",
+    "request-promise": "^4.1.1",
     "winston": "^2.3.0",
     "xml2js": "^0.4.17"
   },
@@ -54,6 +55,7 @@
     "@types/passport-local": "^1.0.29",
     "@types/password-hash": "^1.2.19",
     "@types/request": "0.0.32",
+    "@types/request-promise": "^4.1.33",
     "@types/winston": "0.0.29",
     "@types/wiredep": "^3.0.28",
     "@types/yargs": "^6.3.1",

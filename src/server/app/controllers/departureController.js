@@ -20,7 +20,7 @@ module.exports = function () {
                     return t.p15Id;
                 });
 
-                _.remove(departures, function (departure) {
+                _.remove(departures, function (departure) { 
                     let allIds = _.concat(departure.SubmitterContactIDs.GuideContactID, departure.ApproversContactIDs.ApproverContactID);
                     let matchingIds = _.intersection(allIds, teamIds);
 
