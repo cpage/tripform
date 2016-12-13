@@ -22,7 +22,7 @@
             }
         });
 
-        $urlRouterProvider.otherwise('/users');
+        $urlRouterProvider.otherwise('/departures');
     }
 
     getReturnState.$inject = ['$state', '$q'];

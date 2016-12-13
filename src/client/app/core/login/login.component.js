@@ -33,7 +33,7 @@
                         if($ctrl.returnState.name)
                             $state.go($ctrl.returnState.name, $ctrl.returnState.params);
                         else
-                            $state.go('users');
+                            $state.go('departures');
                     }
                     else {
                         $ctrl.errorMessage = 'Invalid username or password.';
