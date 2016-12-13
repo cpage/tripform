@@ -1,11 +1,11 @@
-<div class="row">
+<div>
     <a class="btn btn-primary" ng-click="$ctrl.loadDepartures(false)">Load All</a>
     <a class="btn btn-primary" ng-click="$ctrl.loadDepartures(true)">Load My Departures</a>
 </div>
-<div class="row" ng-if="$ctrl.showLoadingSpinner">
+<div ng-if="$ctrl.showLoadingSpinner">
     <i class="fa fa-blue fa-5x fa-spinner fa-spin col-xs-offset-5"></i>
 </div>
-<div class="row">
+<div>
     <table class="table table-striped table-hover" ng-if="!$ctrl.loadingDepartures && $ctrl.departures">
         <thead>
             <tr>
