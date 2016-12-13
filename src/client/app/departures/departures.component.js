@@ -13,29 +13,26 @@
             controller: departuresController,
         });
 
-    departuresController.$inject = ['DeparturesSvc'];
-    function departuresController(DeparturesSvc) {
+    departuresController.$inject = ['DeparturesSvc', '$timeout'];
+    function departuresController(DeparturesSvc, $timeout) {
         var $ctrl = this;
         
-
-        $ctrl.loadAllDepartures = function() {
-            console.log('component::getting all departures')
-            $ctrl.loadingAllDepartures = true;
-            DeparturesSvc.getAllDepartures().then(function(departures) {
+        $ctrl.loadDepartures = function(forMe) {
+            console.log('component::getting all departures');
+            $ctrl.loadingDepartures = true;
+            $timeout(function() {
+                if($ctrl.loadingDepartures)
+                    $ctrl.showLoadingSpinner = true;
+            }, 250);
+            
+            var svcCall = forMe ? DeparturesSvc.getMyDepartures() : DeparturesSvc.getAllDepartures();
+            return svcCall.then(function(departures) {
+                $ctrl.loadingDepartures = $ctrl.showLoadingSpinner = false;
                 console.log('component::setting departures var to data');
-                console.log(departures);
                 $ctrl.departures = departures;
-                $ctrl.loadingAllDepartures = false;
             });
         };
 
-        $ctrl.loadMyDepartures = function() {
-            $ctrl.loadingMyDepartures = true;
-            DeparturesSvc.getMyDepartures().then(function(departures) {
-                $ctrl.departures = departures;
-                $ctrl.loadingMyDepartures = false;
-            });
-        };
 
         ////////////////
 
@@ -46,5 +43,7 @@
 
         $ctrl.$onChanges = function(changesObj) { };
         $ctrl.$onDestory = function() { };
+
+
     }
 })();
