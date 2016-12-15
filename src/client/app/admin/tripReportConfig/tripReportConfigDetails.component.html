@@ -2,6 +2,10 @@
     <a class="btn btn-default" ng-click="$ctrl.addHeading()">Add Heading</a>
     <div class="tr-heading-config" ng-repeat="configHeading in $ctrl.tripReportConfig.configHeadings">
         <div class="form-group">
+            <a class="btn btn-default" ng-click="$ctrl.removeHeading($index)">Remove Heading</a>
+        </div>
+
+        <div class="form-group">
             <label class="control-label col-sm-2" for="{{configHeading.id}}_headingText">Heading</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" id="{{configHeading.id}}_headingText" placeholder="Heading text" ng-model="configHeading.text">
@@ -39,6 +43,9 @@
                         <input type="checkbox" class="checkbox" id="{{configQuestion.id}}_required" ng-model="configQuestion.isRequired">
                         </label>
                     </div>
+                </div>
+                <div class="form-group">
+                    <a class="btn btn-primary" ng-click="$ctrl.removeQuestion(configHeading, $index)">Remove Question</a>
                 </div>
             </div>
         </div>

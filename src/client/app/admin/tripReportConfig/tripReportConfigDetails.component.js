@@ -44,7 +44,15 @@
                 isRequired: false,
                 p15FieldName: ''
             });
-        }
+        };
+
+        $ctrl.removeHeading = function(index) {
+            $ctrl.tripReportConfig.configHeadings.splice(index, 1);
+        };
+
+        $ctrl.removeQuestion = function(heading, index) {
+            heading.configQuestions.splice(index, 1);
+        };
         ////////////////
 
 
