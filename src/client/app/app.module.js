@@ -3,7 +3,8 @@
 
     angular.module('app', [
         'app.core',
-        'app.users',
-        'app.departures'
+        'app.departures',
+        'app.admin.users',
+        'app.admin.tripReportConfig'
     ]);
 })();

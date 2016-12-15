@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('app.users')
+        .module('app.admin.users')
         .service('UsersService', UsersService);
 
     UsersService.$inject = ['$http', '$timeout'];

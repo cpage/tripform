@@ -7,9 +7,9 @@
     // 
 
     angular
-        .module('app.users')
+        .module('app.admin.users')
         .component('users', {
-            templateUrl: 'app/users/users.html',
+            templateUrl: 'app/admin/users/users.html',
             controller: usersController
         });
 

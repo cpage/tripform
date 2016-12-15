@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('app.users')
+        .module('app.admin.users')
         .config(configureRoutes);
 
 
@@ -14,7 +14,7 @@
         console.log('configuring user routes...');
         $stateProvider
             .state('users', {
-                url: '/users',
+                url: '/admin/users',
                 component: 'users',
                 resolve: {
                     valid: ['AuthSvc', function(AuthSvc) {

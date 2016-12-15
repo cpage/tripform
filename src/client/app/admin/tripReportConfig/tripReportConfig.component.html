@@ -1,0 +1,4 @@
+<ul>
+    <li ng-repeat="config in $ctrl.tripReportConfigs"><a ui-sref="tripReportConfig.details({id: config.id})">{{config.name}}</a></li>
+</ul>
+<ui-view />
