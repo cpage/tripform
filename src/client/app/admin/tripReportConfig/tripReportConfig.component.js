@@ -13,9 +13,9 @@
             controller: tripReportConfigController
         });
 
-    tripReportConfigController.$inject = ['$state'];
+    tripReportConfigController.$inject = ['$state', 'TripReportConfigSvc'];
 
-    function tripReportConfigController($state) {
+    function tripReportConfigController($state, TripReportConfigSvc) {
         var $ctrl = this;
 
 
@@ -23,17 +23,15 @@
 
         $ctrl.$onInit = function () {
             console.log('tripReportConfig controller init...');
-            $ctrl.tripReportConfigs = [{
-                id: 1,
-                name: 'config 1'
-            }, {
-                id: 2,
-                name: 'config 2'
-            }];
-            console.log('transferring to the first config...');
-            $state.go('.details', {
-                id: $ctrl.tripReportConfigs[0].id
+            TripReportConfigSvc.getAll().then(function(configs) {
+                $ctrl.tripReportConfigs = configs;
+                console.log('transferring to the first config...');
+
+                $state.go('.details', {
+                    id: $ctrl.tripReportConfigs[0]._id
+                });
             });
+            
         };
         $ctrl.$onChanges = function (changesObj) {};
         $ctrl.$onDestory = function () {};

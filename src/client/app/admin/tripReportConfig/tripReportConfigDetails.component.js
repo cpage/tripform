@@ -16,9 +16,9 @@
             },
         });
 
-    tripReportConfigDetailsController.$inject = [];
+    tripReportConfigDetailsController.$inject = ['TripReportConfigSvc'];
 
-    function tripReportConfigDetailsController() {
+    function tripReportConfigDetailsController(TripReportConfigSvc) {
         var $ctrl = this;
 
         $ctrl.addHeading = function() {
@@ -58,6 +58,10 @@
 
         $ctrl.$onInit = function () {
             console.log('in tripReportConfigDetails controller...');
+            TripReportConfigSvc.getById($ctrl.configId).then(function(config) {
+                $ctrl.tripReportConfig = config;    
+            });
+            /*
             $ctrl.tripReportConfig = {
                 configHeadings: [{
                     id: 1,
@@ -130,6 +134,7 @@
                     }]
                 }, ]
             };
+            */
         };
         $ctrl.$onChanges = function (changesObj) {};
         $ctrl.$onDestory = function () {};

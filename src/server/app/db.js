@@ -15,3 +15,7 @@ exports.connect = function (url) {
 exports.db = function() {
     return mongoDb;
 };
+
+exports.getCollection = function(name) {
+    return mongoDb.collection(name);
+}
